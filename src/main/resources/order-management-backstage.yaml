@@ -8,4 +8,4 @@ spec:
   lifecycle: experimental
   owner: your-team
   definition:
-    $text: http://localhost:8080/v3/api-docs
+    $text: http://localhost:8080/v3/api-docss
