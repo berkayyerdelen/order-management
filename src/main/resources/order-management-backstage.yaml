@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: my-local-api
+  description: My local Java API running on localhost:8080
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: your-team
+  definition:
+    $text: http://localhost:8080/v3/api-docs
