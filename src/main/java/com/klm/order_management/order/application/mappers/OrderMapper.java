@@ -18,7 +18,6 @@ public class OrderMapper {
 
     private OrderMapper() {}
 
-    // --- API -> Domain ---
 
     public static Order toDomain(CreateOrderRequest request) {
         Money totalPrice = new Money(request.totalPrice().amount().doubleValue(), request.totalPrice().currency());
