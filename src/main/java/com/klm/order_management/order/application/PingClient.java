@@ -10,6 +10,7 @@ import reactor.util.retry.Retry;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class PingClient {
@@ -29,5 +30,21 @@ public class PingClient {
                         Retry.fixedDelay(3, Duration.ofMillis(500)) // 3 retries with 500ms delay
                                 .filter(throwable -> throwable instanceof WebClientResponseException || throwable instanceof IOException)
                 );
+    }
+
+    public CompletableFuture<String> pingTwice() {
+        CompletableFuture<String> firstPing = toFuture(ping());
+        CompletableFuture<String> secondPing = toFuture(ping());
+
+        return CompletableFuture.allOf(firstPing, secondPing)
+                .thenApply(v -> firstPing.join() + " " + secondPing.join()).exceptionally(x->{
+                    throw new RuntimeException("Failed to ping twice", x);
+                });
+
+    }
+
+
+    private <T> CompletableFuture<T> toFuture(Mono<T> mono) {
+        return mono.toFuture();
     }
 }

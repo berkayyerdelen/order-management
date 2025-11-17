@@ -18,4 +18,8 @@ public class PingController {
     public Mono<String> ping() {
         return pingClient.ping();
     }
+
+    @GetMapping("/ping-twice")
+    public Mono<String> pingTwice() {
+        return Mono.fromFuture(pingClient.pingTwice());}
 }

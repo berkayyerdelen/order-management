@@ -10,10 +10,6 @@ public class PongController {
 
     @GetMapping("/pong")
     public String pong() {
-        counter++;
-        if (counter % 3 != 0) { // fail 2 out of 3 calls
-            throw new RuntimeException("Simulated failure");
-        }
         return "pong";
     }
 }
