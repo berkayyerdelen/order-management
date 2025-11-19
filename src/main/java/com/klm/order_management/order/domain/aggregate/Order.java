@@ -15,7 +15,12 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "orders", indexes = {
+    @Index(name = "idx_customer_id", columnList = "customerId"),
+    @Index(name = "idx_booking_reference", columnList = "reference"),
+    @Index(name = "idx_created_at", columnList = "createdAt"),
+    @Index(name = "idx_status", columnList = "status")
+})
 public class Order {
     @Id
     @GeneratedValue
@@ -28,6 +33,7 @@ public class Order {
     private BookingReference bookingReference;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private OrderStatus status;
 
     private LocalDateTime createdAt;

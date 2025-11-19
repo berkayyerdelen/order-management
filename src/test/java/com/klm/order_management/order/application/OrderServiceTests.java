@@ -19,7 +19,7 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
-public class OderServiceTests {
+public class OrderServiceTests {
     @Mock
     private OrderRepository orderRepository;
 
@@ -59,20 +59,15 @@ public class OderServiceTests {
     void should_Throw_Exception_When_Order_Not_Found() {
         // Arrange
         UpdatePaymentRequest request = new UpdatePaymentRequest(
-                UUID.randomUUID(), List.of(new PaymentRequest(UUID.randomUUID(), PaymentMethod.CARD, 600.0, "EUR"))
-
+                UUID.randomUUID(), 
+                List.of(new PaymentRequest(UUID.randomUUID(), PaymentMethod.CARD, BigDecimal.valueOf(600), "EUR"))
         );
-        Mockito.when(orderRepository.findById(request.orderId())).
-
-                thenReturn(java.util.Optional.empty());
+        Mockito.when(orderRepository.findById(request.orderId()))
+                .thenReturn(java.util.Optional.empty());
         // Act & Assert
-        Assertions.assertThrows(NoSuchElementException.class, () ->
-
-        {
+        Assertions.assertThrows(NoSuchElementException.class, () -> {
             orderService.updatePayment(request);
         });
-        Mockito.verify(orderRepository, Mockito.times(1)).
-
-                findById(request.orderId());
+        Mockito.verify(orderRepository, Mockito.times(1)).findById(request.orderId());
     }
 }

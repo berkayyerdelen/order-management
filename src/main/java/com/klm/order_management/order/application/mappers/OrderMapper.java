@@ -20,7 +20,7 @@ public class OrderMapper {
 
 
     public static Order toDomain(CreateOrderRequest request) {
-        Money totalPrice = new Money(request.totalPrice().amount().doubleValue(), request.totalPrice().currency());
+        Money totalPrice = new Money(request.totalPrice().amount(), request.totalPrice().currency());
         BookingReference reference = new BookingReference(UUID.randomUUID().toString());
 
         Order order = new Order(request.customerId(), reference, totalPrice);
