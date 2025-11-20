@@ -3,8 +3,9 @@ package com.klm.order_management.order.api;
 import com.klm.order_management.order.api.requests.CreateOrderRequest;
 import com.klm.order_management.order.api.requests.UpdatePaymentRequest;
 import com.klm.order_management.order.api.response.CreateOrderResponse;
+import com.klm.order_management.order.api.response.OrderDetailResponse;
 import com.klm.order_management.order.application.OrderService;
-import com.klm.order_management.order.domain.aggregate.Order;
+import com.klm.order_management.order.application.mappers.OrderResponseMapper;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/api/v1/orders")
 @Tag(name = "Order API", description = "Operations related to orders")
 public class OrderController {
 
@@ -51,14 +52,14 @@ public class OrderController {
     }
 
     @GetMapping("/{orderId}")
-    @ApiResponses({@ApiResponse(responseCode = "200", description = "Order retrieved successfully"), @ApiResponse(responseCode = "404", description = "Order not found")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Order retrieved successfully"), 
+            @ApiResponse(responseCode = "404", description = "Order not found")
     })
-    public ResponseEntity<Order> getOrder(@PathVariable("orderId") UUID orderId) {
+    public ResponseEntity<OrderDetailResponse> getOrder(@PathVariable("orderId") UUID orderId) {
         var order = orderService.findById(orderId);
-        if (order == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        return new ResponseEntity<>(order, HttpStatus.OK);
+        var response = OrderResponseMapper.toOrderDetailResponse(order);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/health")

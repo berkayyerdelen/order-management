@@ -151,7 +151,12 @@ public class Order {
     public BookingReference getBookingReference() {
         return bookingReference;
     }
+    
     public List<OrderItem> getOrderItems() {
         return orderItems;
+    }
+    
+    public List<Passenger> getPassengers() {
+        return passengers;
     }
 }

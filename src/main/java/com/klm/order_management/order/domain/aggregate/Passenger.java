@@ -15,6 +15,7 @@ public class Passenger {
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
+    private String nationality;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
@@ -32,4 +33,29 @@ public class Passenger {
     void setOrder(Order order) {
         this.order = order;
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
 }
+

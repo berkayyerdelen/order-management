@@ -51,6 +51,10 @@ public class Payment {
         this.orderItem = orderItem;
     }
 
+    public PaymentMethod getMethod() {
+        return method;
+    }
+
     public PaymentStatus getStatus() {
         return status;
     }
