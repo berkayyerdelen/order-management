@@ -7,10 +7,7 @@ import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 public record MoneyRequest(
-        @NotNull(message = "Amount is required")
-        @Positive(message = "Amount must be positive")
-        BigDecimal amount,
-        
-        @NotBlank(message = "Currency is required")
-        String currency
-) {}
+        @NotNull(message = "Amount is required") @Positive(message = "Amount must be positive") BigDecimal amount,
+
+        @NotBlank(message = "Currency is required") String currency) {
+}
