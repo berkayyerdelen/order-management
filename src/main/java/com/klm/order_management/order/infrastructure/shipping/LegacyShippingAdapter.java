@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-public class ShippingAclAdapter implements ShippingPort {
+public class LegacyShippingAdapter implements ShippingPort {
 
     private final LegacyShippingClient legacyClient;
 
-    public ShippingAclAdapter(LegacyShippingClient legacyClient) {
+    public LegacyShippingAdapter(LegacyShippingClient legacyClient) {
         this.legacyClient = legacyClient;
     }
 
